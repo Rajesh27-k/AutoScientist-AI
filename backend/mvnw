@@ -1,0 +1,11 @@
+#!/bin/sh
+# AutoScientist AI Maven Wrapper Script
+MAVEN_EXEC="/Users/bharadwajpola/.m2/wrapper/dists/apache-maven-3.9.16/56ba1f9f/bin/mvn"
+if [ -f "$MAVEN_EXEC" ]; then
+    exec "$MAVEN_EXEC" "$@"
+elif command -v mvn >/dev/null 2>&1; then
+    exec mvn "$@"
+else
+    echo "ERROR: Maven not found." >&2
+    exit 1
+fi

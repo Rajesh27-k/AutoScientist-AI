@@ -1,0 +1,22 @@
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Frontend dependencies and builds
+frontend/node_modules/
+frontend/dist/
+
+# Backend build output
+backend/target/
+
+# Local uploads and generated data
+backend/uploads/
+
+# IDE and macOS files
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
