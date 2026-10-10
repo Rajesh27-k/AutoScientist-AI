@@ -6,6 +6,8 @@ import com.autoscientist.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -28,6 +30,7 @@ public class SecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
+    private final Environment environment;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -36,14 +39,18 @@ public class SecurityConfig {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        DaoAuthenticationProvider authProvider =
+                new DaoAuthenticationProvider();
+
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
+
         return authProvider;
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
@@ -53,23 +60,45 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http)
+            throws Exception {
+
         http
-                .cors(Customizer.withDefaults())
-                .csrf(AbstractHttpConfigurer::disable)
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())) // for H2 console
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/error").permitAll()
-                        .anyRequest().authenticated()
-                );
+            .cors(Customizer.withDefaults())
+            .csrf(AbstractHttpConfigurer::disable)
+            .headers(headers ->
+                headers.frameOptions(frameOptions ->
+                    frameOptions.sameOrigin()
+                )
+            )
+            .exceptionHandling(exception ->
+                exception.authenticationEntryPoint(unauthorizedHandler)
+            )
+            .sessionManagement(session ->
+                session.sessionCreationPolicy(
+                    SessionCreationPolicy.STATELESS
+                )
+            )
+            .authorizeHttpRequests(auth -> {
+                auth.requestMatchers("/api/auth/**").permitAll();
+                auth.requestMatchers("/error").permitAll();
+
+                // The H2 console is public only during development.
+                if (environment.acceptsProfiles(Profiles.of("dev"))) {
+                    auth.requestMatchers("/h2-console/**").permitAll();
+                }
+
+                auth.anyRequest().authenticated();
+            });
 
         http.authenticationProvider(authenticationProvider());
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        http.addFilterBefore(
+            authenticationJwtTokenFilter(),
+            UsernamePasswordAuthenticationFilter.class
+        );
 
         return http.build();
     }
 }
+
