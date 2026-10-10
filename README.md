@@ -1,151 +1,167 @@
-# AutoScientist AI
+# AutoScientist AI 🔬
 
-> *"From Raw Data to Evidence-Based Scientific Discovery."*
+**An AI-powered data science platform that automates machine learning workflows, explains model predictions, evaluates fairness, and helps users explore datasets.**
 
-AutoScientist AI is an autonomous, full-stack scientific discovery and empirical data science platform. It ingests tabular datasets (CSV), performs automated profiling and data quality audits, runs comprehensive Exploratory Data Analysis (EDA), identifies statistically sound associations, guides hypothesis formulation, executes hypothesis tests, benchmarks machine learning algorithms with automated hyperparameter selection, extracts explainability and fairness metrics, detects data drift, constructs an audit-ready evidence graph, and generates full scientific reports and downloadable vector PDFs.
+AutoScientist AI is a full-stack application designed to simplify the data science lifecycle. It combines a React-based frontend with a Java Spring Boot backend to provide an integrated environment for data analysis, model experimentation, explainability, and reporting.
 
----
+## ✨ Features
 
-## Key Highlights
+- **Automated Machine Learning (AutoML):** Streamline model experimentation and evaluation.
+- **Data Analysis:** Explore datasets and generate statistical insights.
+- **Explainable AI (XAI):** Help users understand model behavior and predictions.
+- **Fairness Analysis:** Examine model performance across groups and identify potential disparities.
+- **What-If Analysis:** Explore how changing input values may affect model outcomes.
+- **Drift Monitoring:** Support analysis of changes in data distributions.
+- **Ask Dataset:** Interact with dataset information through a question-and-answer interface.
+- **Evidence Graph:** Connect analytical findings with supporting evidence.
+- **Reports and PDF Export:** Present results in shareable report formats.
+- **Workflow Navigation:** Organize analysis into structured stages.
+- **Persistent Storage:** Support database-backed application data.
+- **Responsive Interface:** Provide a browser-based interface for data science workflows.
 
-- **Pure Java + React Stack**: Built with Spring Boot 3, Apache Commons Math, OpenPDF, and React 18 (Vite, Bootstrap, Chart.js).
-- **Strictly No Python**: Complies with the pure Java/MySQL constraint—no Flask, FastAPI, pandas, numpy, scipy, or scikit-learn.
-- **Zero Hallucination / Pure Empirical Computing**: All statistical tests (Pearson, Welch's t-test, ANOVA, Chi-Square), metrics, and models are calculated directly on uploaded data.
-- **Scientific Rigor**: Strict separation between correlation and causation; robust edge-case handling (zero variance, missing value paired alignment, empty classes, low sample size warnings).
-- **AutoML & Explainability (XAI)**: End-to-end regression and classification pipelines with automated preprocessing, validation scoring, permutation importance, and what-if counterfactual scenario simulations.
-- **Algorithmic Fairness Audit**: Evaluates demographic parity ratios and EEOC Four-Fifths disparate impact rules.
-- **Data Drift & Cohort Stability**: Quantile-based Population Stability Index (PSI) and Welch-t distribution shift testing.
-- **Ask Dataset NLP Engine**: Query dataset in natural language with mathematically verified answers.
-- **Scientific Report & Vector PDF Export**: Automated narrative Markdown synthesis and publication-quality PDF generation via OpenPDF.
-- **Enterprise Security**: JWT-based authentication, BCrypt password hashing, ownership checks on every endpoint, strict path traversal defense, and centralized exception handling.
+## 🏗️ Technology Stack
 
----
+| Component | Technologies |
+|---|---|
+| Backend | Java 21, Spring Boot 3 |
+| Frontend | React 18, Vite |
+| UI | Bootstrap 5 |
+| Charts | Chart.js |
+| Persistence | MySQL / H2 |
+| Analytics | Java-based statistical and machine-learning engines |
 
-## Monorepo Layout
+## 🧩 Architecture
 
-```
-AutoScientist AI/
-├── backend/                  # Java 17+ Spring Boot 3 REST API
-│   ├── src/main/java/com/autoscientist/
-│   │   ├── config/           # Security and Web configurations
-│   │   ├── controller/       # REST API endpoints (Auth, Datasets, AutoML, Drift, Ask, Reports)
-│   │   ├── dto/              # Request / Response DTO models
-│   │   ├── entity/           # JPA Entities (User, Dataset, Experiment, Report, Finding)
-│   │   ├── repository/       # Spring Data JPA Repositories
-│   │   ├── service/          # Business logic & ownership enforcement
-│   │   ├── security/         # JWT filter, user details, token provider
-│   │   ├── analysis/         # Statistical, ML, EDA, profiling, drift, XAI engines
-│   │   ├── exception/        # Global exception handler & custom exceptions
-│   │   └── util/             # CSV parser, math helpers, file storage
-│   ├── pom.xml
-│   └── .env.example
-├── frontend/                 # React 18 + Vite SPA
-│   ├── src/
-│   │   ├── components/       # Navbar, ProtectedRoute, UI widgets
-│   │   ├── pages/            # Dashboard, Datasets, Research, AutoML, Drift, Ask, Reports
-│   │   ├── services/         # Axios API clients
-│   │   ├── context/          # Auth context
-│   │   └── index.css
-│   ├── package.json
-│   └── vite.config.js
-├── database/                 # MySQL schemas and migration scripts
-│   └── schema.sql
-├── docs/                     # Comprehensive documentation suite
-│   ├── DATABASE_SCHEMA.md
-│   ├── API_DOCUMENTATION.md
-│   ├── SCIENTIFIC_METHODS.md
-│   ├── TESTING.md
-│   ├── DEPLOYMENT.md
-│   ├── REPRODUCIBILITY.md
-│   ├── TROUBLESHOOTING.md
-│   └── VIVA_GUIDE.md
-├── test-data/                # Benchmark real-world CSV datasets
-│   ├── student_performance.csv
-│   └── biomedical_patient_data.csv
-├── scripts/                  # Setup, build, and run automation scripts
-│   ├── build_all.sh
-│   ├── run_backend.sh
-│   └── run_frontend.sh
-├── ARCHITECTURE.md
-├── CLAUDE_OR_AGENT_RULES.md
-└── README.md
+```text
+AutoScientist AI
+│
+├── Frontend
+│   ├── React 18
+│   ├── Vite
+│   ├── Bootstrap 5
+│   └── Chart.js
+│
+├── Backend
+│   ├── Java 21
+│   ├── Spring Boot 3
+│   ├── Statistical and ML Engines
+│   └── REST APIs
+│
+└── Persistence
+    ├── MySQL
+    └── H2
 ```
 
----
-
-## Quick Start
+## 🚀 Getting Started
 
 ### Prerequisites
-- **Java 17 or higher** (`java -version`)
-- **Maven 3.8+**
-- **Node.js 18+ and npm**
-- **MySQL 8.0+** (or use in-memory H2 profile)
 
-### 1. Database Setup
+Install the following tools:
+
+- Java Development Kit (JDK) 21
+- Node.js and npm
+- Git
+- MySQL, if using the MySQL configuration
+
+### 1. Clone the repository
+
 ```bash
-mysql -u root -p < database/schema.sql
+git clone https://github.com/bharad1101/AutoScientist-AI.git
+cd AutoScientist-AI
 ```
 
-### 2. Backend Setup
+### 2. Start the backend
+
+Open a terminal in the project directory and follow the backend build configuration.
+
+For a Maven-based Spring Boot project:
+
 ```bash
 cd backend
-cp .env.example .env
-# Adjust SPRING_DATASOURCE_PASSWORD or JWT_SECRET if needed in .env
 ./mvnw spring-boot:run
 ```
-The backend API will start on `http://localhost:8080`.
 
-### 3. Frontend Setup
+If the project uses a system-installed Maven instead of the Maven wrapper, use:
+
+```bash
+mvn spring-boot:run
+```
+
+The backend is expected to run at:
+
+```text
+http://localhost:8080
+```
+
+### 3. Start the frontend
+
+Open a second terminal:
+
 ```bash
 cd frontend
-cp .env.example .env
 npm install
 npm run dev
 ```
-The frontend UI will be accessible at `http://localhost:5173`.
 
-### 4. One-Click Build & Verification
-```bash
-./scripts/build_all.sh
+Open the local frontend URL printed by Vite. The default development address is commonly:
+
+```text
+http://localhost:5173
 ```
 
----
+**Note:** Confirm the actual backend and frontend folder names and build commands in your repository before relying on these instructions.
 
-## Running the Automated Test Suite
+## 🧪 Testing
 
-From the `backend` directory:
+Run the backend tests using the build tool configured in the project.
+
+For Maven:
+
 ```bash
-cd backend
-./mvnw clean test
+./mvnw test
 ```
-All **24 unit and integration tests** verify:
-1. `DataQualityEngineTest`: Missing values, duplicates, outliers.
-2. `QuestionAnalysisEngineTest`: NLP variable extraction and $H_0/H_1$ formulation.
-3. `AutoMlEngineTest`: Pure Java Ridge regression, Decision Trees, Logistic regression, Random Forest.
-4. `StatisticalTestEngineTest`: Pearson, Welch's t-test, ANOVA, Chi-Square, aligned paired deletion.
-5. `EndToEndPipelineTest`: Full regression workflow on `student_performance.csv`.
-6. `BiomedicalClassificationPipelineTest`: Full clinical classification workflow on `biomedical_patient_data.csv`.
-7. `DataDriftAndAskTest`: Population Stability Index (PSI) & Ask Dataset NLP engine.
-8. `ReportAndPdfTest`: Scientific report Markdown synthesis & OpenPDF vector export.
-9. `AuthControllerTest` & `AuthServiceTest`: User registration, authentication, JWT tokens.
-10. `DatasetProfilerTest`: Automated type inference and statistical distributions.
+
+For a Gradle project, use its Gradle wrapper and configured test task instead.
+
+## 🔐 Configuration
+
+Configure database connections and other environment-specific settings using the application's supported configuration files or environment variables.
+
+**Security recommendations:**
+- Do not commit passwords, API keys, tokens, or other secrets.
+- Keep local environment files out of version control.
+- Use environment-specific database credentials.
+- Review the repository before making it public.
+
+## 🗺️ Project Roadmap
+
+Potential future improvements include:
+
+- Expanded model selection and evaluation methods
+- More interactive visualizations
+- Additional explainability techniques
+- Enhanced dataset validation and monitoring
+- Improved documentation and deployment options
+
+## 🤝 Contributing
+
+Contributions, bug reports, and feature suggestions are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Make and test your changes.
+4. Submit a pull request describing your contribution.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Bharadwaj Pola**
+
+GitHub: [@bharad1101](https://github.com/bharad1101)
 
 ---
 
-## Complete Documentation Index
-
-For in-depth architectural and scientific documentation, refer to the `docs/` directory:
-- [Database Schema Documentation](docs/DATABASE_SCHEMA.md)
-- [REST API Reference](docs/API_DOCUMENTATION.md)
-- [Scientific & Statistical Methods](docs/SCIENTIFIC_METHODS.md)
-- [Comprehensive Testing Guide](docs/TESTING.md)
-- [Production Deployment Guide](docs/DEPLOYMENT.md)
-- [Scientific Reproducibility & Provenance Standard](docs/REPRODUCIBILITY.md)
-- [Operational & Statistical Troubleshooting Guide](docs/TROUBLESHOOTING.md)
-- [Technical Defense & Viva Examination Guide](docs/VIVA_GUIDE.md)
-
----
-
-## Scientific Integrity & Causality Statement
-
-> **CAUTION**: Statistical significance ($p < 0.05$) and empirical mathematical associations ($r \ne 0$) establish observational correlation, **NOT** causality. All findings generated by AutoScientist AI include strict provenance and causality disclaimers advising researchers that causal inferences require randomized controlled trials (RCTs) or formal causal graphical identification.
+*Built to make data science workflows more accessible, explainable, and reproducible.*
