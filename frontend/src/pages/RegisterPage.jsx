@@ -29,8 +29,11 @@ const RegisterPage = () => {
 
     setSubmitting(true);
     try {
-      await register(name, email, password);
-      navigate('/dashboard', { replace: true });
+await register(name, email, password);
+navigate('/login', { replace: true });
+
+      
+      
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || err.message || 'Registration failed.');
